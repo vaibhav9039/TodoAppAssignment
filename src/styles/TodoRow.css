@@ -1,0 +1,13 @@
+.todo-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.todo-row:hover .btn-small {
+  display: inline-block;
+}
+
+.todo-row:last-child {
+  margin-bottom: 0;
+}
