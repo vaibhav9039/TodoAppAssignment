@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import Button from "./Button";
 import Checkbox from "./Checkbox";
 
 const TodoRow = ({ label, onDelete }) => {
-  const [completed, setCompleted] = useState(false);
+  const [checked, setChecked] = useState(false);
   const [hovered, setHovered] = useState(false);
 
   const handleCheckboxChange = () => {
-    setCompleted(!completed);
+    setChecked(!checked);
   };
 
   const handleMouseEnter = () => {
@@ -18,26 +19,43 @@ const TodoRow = ({ label, onDelete }) => {
     setHovered(false);
   };
 
-  const handleDeleteClick = () => {
+  const handleButtonClick = () => {
     onDelete();
   };
 
-  const buttonStyle = {
-    display: hovered ? "inline" : "none"
-  };
-
   return (
-    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        marginBottom: "10px",
+        justifyContent: "space-between"
+      }}
+    >
       <Checkbox
         label={label}
-        checked={completed}
+        checked={checked}
         onChange={handleCheckboxChange}
       />
-      <Button variant="small" onClick={handleDeleteClick} style={buttonStyle}>
-        Delete
-      </Button>
+
+      {hovered && (
+        <Button
+          variant="small"
+          onClick={handleButtonClick}
+          style={{ backgroundColor: "#4eb570" }}
+        >
+          X
+        </Button>
+      )}
     </div>
   );
+};
+
+TodoRow.propTypes = {
+  label: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired
 };
 
 export default TodoRow;
